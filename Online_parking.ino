@@ -1,10 +1,19 @@
 #include <Servo.h> //includes the servo library
 #include <Wire.h> 
 #include <LiquidCrystal_I2C.h>
+#include <SoftwareSerial.h>
 LiquidCrystal_I2C lcd(0x27, 16, 2);
+SoftwareSerial nodemcu(2, 3);
 
 Servo myservo1;
 Servo myservo2;
+
+String sensor1;
+String sensor2;
+String sensor3;
+String sensor4;
+
+String cdata="";
 
 #define ir_enter 34
 #define ir_back  35
@@ -20,7 +29,14 @@ int slot;
 
 void setup() {
  Serial.begin(9600);
- pinMode(ir_car1, INPUT);
+ nodemcu.begin(9600);
+ //NodeMcu
+ cdata = cdata + sensor1 +"," + sensor2 + ","+ sensor3 +","+ sensor4 + ",";
+ Serial.println(cdata);
+ nodemcu.println(cdata);
+ delay(6000);
+ cdata="";
+pinMode(ir_car1, INPUT);
 pinMode(ir_car2, INPUT);
 pinMode(ir_car3, INPUT);
 pinMode(ir_car4, INPUT);
@@ -108,6 +124,10 @@ if(ir_car1_value == 0 && ir_car2_value == 0 && ir_car3_value == 0 && ir_car4_val
   lcd.clear();
 }else if(ir_car1_value == 0 && ir_car2_value == 0 && ir_car3_value == 0 && ir_car4_value == 1){
   slot = 1;
+  sensor1="0";
+  sensor2="0";
+  sensor3="0";
+  sensor4="255";
   lcd.setCursor (12, 1);
   lcd.print("S4=E ");
   lcd.setCursor (7, 1);
@@ -119,9 +139,12 @@ if(ir_car1_value == 0 && ir_car2_value == 0 && ir_car3_value == 0 && ir_car4_val
 }
 else if(ir_car1_value == 0 && ir_car2_value == 0 && ir_car3_value == 1 && ir_car4_value == 1){
   slot = 2;
+  sensor1="0";
+  sensor2="0";
+  sensor3="255";
+  sensor4="255";
   lcd.setCursor (12, 1);
   lcd.print("S4=E ");
-  
   lcd.setCursor (7, 1);
   lcd.print("S3=E ");
   lcd.setCursor (12,0);
@@ -131,6 +154,10 @@ else if(ir_car1_value == 0 && ir_car2_value == 0 && ir_car3_value == 1 && ir_car
 }
 else if(ir_car1_value == 0 && ir_car2_value == 1 && ir_car3_value == 1 && ir_car4_value == 1){
   slot = 3;
+  sensor1="0";
+  sensor2="255";
+  sensor3="255";
+  sensor4="255";
   lcd.setCursor (12, 1);
   lcd.print("S4=E ");
   lcd.setCursor (7, 1);
@@ -142,6 +169,10 @@ else if(ir_car1_value == 0 && ir_car2_value == 1 && ir_car3_value == 1 && ir_car
 }
 else if(ir_car1_value == 1 && ir_car2_value == 1 && ir_car3_value == 1 && ir_car4_value == 1){
   slot = 4;
+  sensor1="255";
+  sensor2="255";
+  sensor3="255";
+  sensor4="255";
   lcd.setCursor (12, 1);
   lcd.print("S4=E ");
   lcd.setCursor (7, 1);
@@ -153,7 +184,11 @@ else if(ir_car1_value == 1 && ir_car2_value == 1 && ir_car3_value == 1 && ir_car
 }
 else if(ir_car1_value == 1 && ir_car2_value == 1 && ir_car3_value == 1 && ir_car4_value == 0){
   slot = 3;
-    lcd.setCursor (12, 1);
+   sensor1="255";
+  sensor2="255";
+  sensor3="255";
+  sensor4="0";
+   lcd.setCursor (12, 1);
   lcd.print("S4=F ");
   lcd.setCursor (7, 1);
   lcd.print("S3=E ");
@@ -164,7 +199,11 @@ else if(ir_car1_value == 1 && ir_car2_value == 1 && ir_car3_value == 1 && ir_car
 }
 else if(ir_car1_value == 1 && ir_car2_value == 1 && ir_car3_value == 0 && ir_car4_value == 0){
   slot = 2;
-    lcd.setCursor (12, 1);
+  sensor1="255";
+  sensor2="255";
+  sensor3="0";
+  sensor4="0";
+   lcd.setCursor (12, 1);
   lcd.print("S4=F ");
   lcd.setCursor (7, 1);
   lcd.print("S3=F ");
@@ -175,6 +214,11 @@ else if(ir_car1_value == 1 && ir_car2_value == 1 && ir_car3_value == 0 && ir_car
 }
 else if(ir_car1_value == 1 && ir_car2_value == 0 && ir_car3_value == 0 && ir_car4_value == 0){
   slot = 1;
+
+  sensor1="255";
+  sensor2="0";
+  sensor3="0";
+  sensor4="0";
   lcd.setCursor (12, 1);
   lcd.print("S4=F ");
   lcd.setCursor (7, 1);
@@ -187,7 +231,11 @@ else if(ir_car1_value == 1 && ir_car2_value == 0 && ir_car3_value == 0 && ir_car
 
 else if(ir_car1_value == 0 && ir_car2_value == 1 && ir_car3_value == 0 && ir_car4_value == 1){
   slot = 2;
-    lcd.setCursor (12, 1);
+  sensor1="0";
+  sensor2="255";
+  sensor3="0";
+  sensor4="255";
+  lcd.setCursor (12, 1);
   lcd.print("S4=E ");
   lcd.setCursor (7, 1);
   lcd.print("S3=F ");
@@ -197,7 +245,11 @@ else if(ir_car1_value == 0 && ir_car2_value == 1 && ir_car3_value == 0 && ir_car
   lcd.print("S1=F ");
 }else if(ir_car1_value == 1 && ir_car2_value == 0 && ir_car3_value == 1 && ir_car4_value == 0){
   slot = 2;
-    lcd.setCursor (12, 1);
+  sensor1="255";
+  sensor2="0";
+  sensor3="255";
+  sensor4="0";
+  lcd.setCursor (12, 1);
   lcd.print("S4=F ");
   lcd.setCursor (7, 1);
   lcd.print("S3=E ");
@@ -208,7 +260,11 @@ else if(ir_car1_value == 0 && ir_car2_value == 1 && ir_car3_value == 0 && ir_car
 }
 else if(ir_car1_value == 1 && ir_car2_value == 1 && ir_car3_value == 0 && ir_car4_value == 1){
   slot = 3;
-    lcd.setCursor (12, 1);
+  sensor1="255";
+  sensor2="255";
+  sensor3="0";
+  sensor4="255";
+  lcd.setCursor (12, 1);
   lcd.print("S4=E ");
   lcd.setCursor (7, 1);
   lcd.print("S3=F ");
@@ -219,6 +275,10 @@ else if(ir_car1_value == 1 && ir_car2_value == 1 && ir_car3_value == 0 && ir_car
 }
 else if(ir_car1_value == 1 && ir_car2_value == 0 && ir_car3_value == 1 && ir_car4_value == 1){
   slot = 3;
+  sensor1="255";
+  sensor2="0";
+  sensor3="255";
+  sensor4="255";
     lcd.setCursor (12, 1);
   lcd.print("S4=E ");
   lcd.setCursor (7, 1);
@@ -229,6 +289,10 @@ else if(ir_car1_value == 1 && ir_car2_value == 0 && ir_car3_value == 1 && ir_car
   lcd.print("S1=E ");
 }else if(ir_car1_value == 1 && ir_car2_value == 0 && ir_car3_value == 0 && ir_car4_value == 1){
   slot = 2;
+  sensor1="255";
+  sensor2="0";
+  sensor3="0";
+  sensor4="255";
     lcd.setCursor (12, 1);
   lcd.print("S4=E ");
   lcd.setCursor (7, 1);
@@ -240,6 +304,10 @@ else if(ir_car1_value == 1 && ir_car2_value == 0 && ir_car3_value == 1 && ir_car
 }
 else if(ir_car1_value == 0 && ir_car2_value == 1 && ir_car3_value == 1 && ir_car4_value == 0){
   slot = 2;
+  sensor1="0";
+  sensor2="255";
+  sensor3="255";
+  sensor4="0";
     lcd.setCursor (12, 1);
   lcd.print("S4=F ");
   lcd.setCursor (7, 1);
@@ -250,6 +318,10 @@ else if(ir_car1_value == 0 && ir_car2_value == 1 && ir_car3_value == 1 && ir_car
   lcd.print("S1=F ");
 }else if(ir_car1_value == 0 && ir_car2_value == 1 && ir_car3_value == 0 && ir_car4_value == 0){
   slot = 1;
+  sensor1="0";
+  sensor2="255";
+  sensor3="0";
+  sensor4="0";
     lcd.setCursor (12, 1);
   lcd.print("S4=F ");
   lcd.setCursor (7, 1);
@@ -260,6 +332,10 @@ else if(ir_car1_value == 0 && ir_car2_value == 1 && ir_car3_value == 1 && ir_car
   lcd.print("S1=F ");
 }else if(ir_car1_value == 0 && ir_car2_value == 0 && ir_car3_value == 1 && ir_car4_value == 0){
   slot = 1;
+  sensor1="0";
+  sensor2="0";
+  sensor3="255";
+  sensor4="0";
     lcd.setCursor (12, 1);
   lcd.print("S4=F ");
   lcd.setCursor (7, 1);
