@@ -13,10 +13,11 @@ SoftwareSerial nodemcu(2, 3);
 Servo myservo1;
 Servo myservo2;
 
-String sensor1;
-String sensor2;
-String sensor3;
-String sensor4;
+int sensor1;
+int sensor2;
+int sensor3;
+int sensor4;
+
 
 
 #define ir_enter 34
@@ -88,7 +89,7 @@ void loop() {
 
   data.printTo(nodemcu);
 //  jsonBuffer.clear();
-  delay(500);
+  delay(100);
 
   lcd.setCursor (0, 0);
   lcd.print("E.S=");
@@ -137,10 +138,10 @@ void Read_Sensor() {
 
   if (ir_car1_value == 0 && ir_car2_value == 0 && ir_car3_value == 0 && ir_car4_value == 0 ) {
     slot = 0;
-    sensor1 = "0";
-    sensor2 = "0";
-    sensor3 = "0";
-    sensor4 = "0";
+    sensor1 = 0;
+    sensor2 = 0;
+    sensor3 = 0;
+    sensor4 = 0;
     delay(1000);
     Serial.println(sensor1); Serial.println(sensor2); Serial.println(sensor3); Serial.println(sensor4);
     lcd.setCursor (0, 0);
@@ -151,10 +152,10 @@ void Read_Sensor() {
     lcd.clear();
   } else if (ir_car1_value == 0 && ir_car2_value == 0 && ir_car3_value == 0 && ir_car4_value == 1) {
     slot = 1;
-    sensor1 = "0";
-    sensor2 = "0";
-    sensor3 = "0";
-    sensor4 = "1";
+    sensor1 = 0;
+    sensor2 = 0;
+    sensor3 = 0;
+    sensor4 = 1;
     Serial.println(sensor1); Serial.println(sensor2); Serial.println(sensor3); Serial.println(sensor4);
     lcd.setCursor (12, 1);
     lcd.print("S4=E ");
@@ -167,10 +168,10 @@ void Read_Sensor() {
   }
   else if (ir_car1_value == 0 && ir_car2_value == 0 && ir_car3_value == 1 && ir_car4_value == 1) {
     slot = 2;
-    sensor1 = "0";
-    sensor2 = "0";
-    sensor3 = "1";
-    sensor4 = "1";
+    sensor1 = 0;
+    sensor2 = 0;
+    sensor3 = 1;
+    sensor4 = 1;
     Serial.println(sensor1); Serial.println(sensor2); Serial.println(sensor3); Serial.println(sensor4);
     lcd.setCursor (12, 1);
     lcd.print("S4=E ");
@@ -183,10 +184,10 @@ void Read_Sensor() {
   }
   else if (ir_car1_value == 0 && ir_car2_value == 1 && ir_car3_value == 1 && ir_car4_value == 1) {
     slot = 3;
-    sensor1 = "0";
-    sensor2 = "1";
-    sensor3 = "1";
-    sensor4 = "1";
+    sensor1 = 0;
+    sensor2 = 1;
+    sensor3 = 1;
+    sensor4 = 1;
     Serial.println(sensor1); Serial.println(sensor2); Serial.println(sensor3); Serial.println(sensor4);
     lcd.setCursor (12, 1);
     lcd.print("S4=E ");
@@ -199,10 +200,10 @@ void Read_Sensor() {
   }
   else if (ir_car1_value == 1 && ir_car2_value == 1 && ir_car3_value == 1 && ir_car4_value == 1) {
     slot = 4;
-    sensor1 = "1";
-    sensor2 = "1";
-    sensor3 = "1";
-    sensor4 = "1";
+    sensor1 = 1;
+    sensor2 = 1;
+    sensor3 = 1;
+    sensor4 = 1;
     Serial.println(sensor1); Serial.println(sensor2); Serial.println(sensor3); Serial.println(sensor4);
     lcd.setCursor (12, 1);
     lcd.print("S4=E ");
@@ -215,10 +216,10 @@ void Read_Sensor() {
   }
   else if (ir_car1_value == 1 && ir_car2_value == 1 && ir_car3_value == 1 && ir_car4_value == 0) {
     slot = 3;
-    sensor1 = "1";
-    sensor2 = "1";
-    sensor3 = "1";
-    sensor4 = "0";
+    sensor1 = 1;
+    sensor2 = 1;
+    sensor3 = 1;
+    sensor4 = 0;
     Serial.println(sensor1); Serial.println(sensor2); Serial.println(sensor3); Serial.println(sensor4);
     lcd.setCursor (12, 1);
     lcd.print("S4=F ");
@@ -231,10 +232,10 @@ void Read_Sensor() {
   }
   else if (ir_car1_value == 1 && ir_car2_value == 1 && ir_car3_value == 0 && ir_car4_value == 0) {
     slot = 2;
-    sensor1 = "1";
-    sensor2 = "1";
-    sensor3 = "0";
-    sensor4 = "0";
+    sensor1 = 1;
+    sensor2 = 1;
+    sensor3 = 0;
+    sensor4 = 0;
     Serial.println(sensor1); Serial.println(sensor2); Serial.println(sensor3); Serial.println(sensor4);
     lcd.setCursor (12, 1);
     lcd.print("S4=F ");
@@ -248,10 +249,10 @@ void Read_Sensor() {
   else if (ir_car1_value == 1 && ir_car2_value == 0 && ir_car3_value == 0 && ir_car4_value == 0) {
     slot = 1;
 
-    sensor1 = "1";
-    sensor2 = "0";
-    sensor3 = "0";
-    sensor4 = "0";
+    sensor1 = 1;
+    sensor2 = 0;
+    sensor3 = 0;
+    sensor4 = 0;
     Serial.println(sensor1); Serial.println(sensor2); Serial.println(sensor3); Serial.println(sensor4);
     lcd.setCursor (12, 1);
     lcd.print("S4=F ");
@@ -265,10 +266,10 @@ void Read_Sensor() {
 
   else if (ir_car1_value == 0 && ir_car2_value == 1 && ir_car3_value == 0 && ir_car4_value == 1) {
     slot = 2;
-    sensor1 = "0";
-    sensor2 = "1";
-    sensor3 = "0";
-    sensor4 = "1";
+    sensor1 = 0;
+    sensor2 = 1;
+    sensor3 = 0;
+    sensor4 = 1;
     Serial.println(sensor1); Serial.println(sensor2); Serial.println(sensor3); Serial.println(sensor4);
     lcd.setCursor (12, 1);
     lcd.print("S4=E ");
@@ -280,10 +281,10 @@ void Read_Sensor() {
     lcd.print("S1=F ");
   } else if (ir_car1_value == 1 && ir_car2_value == 0 && ir_car3_value == 1 && ir_car4_value == 0) {
     slot = 2;
-    sensor1 = "1";
-    sensor2 = "0";
-    sensor3 = "1";
-    sensor4 = "0";
+    sensor1 = 1;
+    sensor2 = 0;
+    sensor3 = 1;
+    sensor4 = 0;
     Serial.println(sensor1); Serial.println(sensor2); Serial.println(sensor3); Serial.println(sensor4);
     lcd.setCursor (12, 1);
     lcd.print("S4=F ");
@@ -296,10 +297,10 @@ void Read_Sensor() {
   }
   else if (ir_car1_value == 1 && ir_car2_value == 1 && ir_car3_value == 0 && ir_car4_value == 1) {
     slot = 3;
-    sensor1 = "1";
-    sensor2 = "1";
-    sensor3 = "0";
-    sensor4 = "1";
+    sensor1 = 1;
+    sensor2 = 1;
+    sensor3 = 0;
+    sensor4 = 1;
     Serial.println(sensor1); Serial.println(sensor2); Serial.println(sensor3); Serial.println(sensor4);
     lcd.setCursor (12, 1);
     lcd.print("S4=E ");
@@ -312,10 +313,10 @@ void Read_Sensor() {
   }
   else if (ir_car1_value == 1 && ir_car2_value == 0 && ir_car3_value == 1 && ir_car4_value == 1) {
     slot = 3;
-    sensor1 = "1";
-    sensor2 = "0";
-    sensor3 = "1";
-    sensor4 = "1";
+    sensor1 = 1;
+    sensor2 = 0;
+    sensor3 = 1;
+    sensor4 = 1;
     Serial.println(sensor1); Serial.println(sensor2); Serial.println(sensor3); Serial.println(sensor4);
     lcd.setCursor (12, 1);
     lcd.print("S4=E ");
@@ -327,10 +328,10 @@ void Read_Sensor() {
     lcd.print("S1=E ");
   } else if (ir_car1_value == 1 && ir_car2_value == 0 && ir_car3_value == 0 && ir_car4_value == 1) {
     slot = 2;
-    sensor1 = "1";
-    sensor2 = "0";
-    sensor3 = "0";
-    sensor4 = "1";
+    sensor1 = 1;
+    sensor2 = 0;
+    sensor3 = 0;
+    sensor4 = 1;
     Serial.println(sensor1); Serial.println(sensor2); Serial.println(sensor3); Serial.println(sensor4);
     lcd.setCursor (12, 1);
     lcd.print("S4=E ");
@@ -343,10 +344,10 @@ void Read_Sensor() {
   }
   else if (ir_car1_value == 0 && ir_car2_value == 1 && ir_car3_value == 1 && ir_car4_value == 0) {
     slot = 2;
-    sensor1 = "0";
-    sensor2 = "1";
-    sensor3 = "1";
-    sensor4 = "0";
+    sensor1 = 0;
+    sensor2 = 1;
+    sensor3 = 1;
+    sensor4 = 0;
     Serial.print(sensor1); Serial.print(sensor2); Serial.print(sensor3); Serial.print(sensor4);
     lcd.setCursor (12, 1);
     lcd.print("S4=F ");
@@ -358,10 +359,10 @@ void Read_Sensor() {
     lcd.print("S1=F ");
   } else if (ir_car1_value == 0 && ir_car2_value == 1 && ir_car3_value == 0 && ir_car4_value == 0) {
     slot = 1;
-    sensor1 = "0";
-    sensor2 = "1";
-    sensor3 = "0";
-    sensor4 = "0";
+    sensor1 = 0;
+    sensor2 = 1;
+    sensor3 = 0;
+    sensor4 = 0;
     Serial.print(sensor1); Serial.print(sensor2); Serial.print(sensor3); Serial.print(sensor4);
     lcd.setCursor (12, 1);
     lcd.print("S4=F ");
@@ -373,10 +374,10 @@ void Read_Sensor() {
     lcd.print("S1=F ");
   } else if (ir_car1_value == 0 && ir_car2_value == 0 && ir_car3_value == 1 && ir_car4_value == 0) {
     slot = 1;
-    sensor1 = "0";
-    sensor2 = "0";
-    sensor3 = "1";
-    sensor4 = "0";
+    sensor1 = 0;
+    sensor2 = 0;
+    sensor3 = 1;
+    sensor4 = 0;
     Serial.print(sensor1); Serial.print(sensor2); Serial.print(sensor3); Serial.print(sensor4);
     lcd.setCursor (12, 1);
     lcd.print("S4=F ");
